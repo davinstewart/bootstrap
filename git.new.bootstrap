@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Assumption:  There is a fresh, blank github repo already created under your login with the same name as this project.
 
 # Create the README.md file

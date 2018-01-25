@@ -1,2 +1,4 @@
+#!/bin/bash
+
 # Install React
 sudo npm install -g react react-dom -S

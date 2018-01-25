@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Assumption:  There is a fresh, blank github repo already created under your login with the same name as this project.
 
 # Initialize the git repository
@@ -6,3 +8,6 @@ git clone $1
 # Add the commit to the github repo.
 git remote add origin https://github.com/davinstewart/$1.git
 git push -u origin master
+
+# Configure git push default behavior
+git config --global push.default simple
