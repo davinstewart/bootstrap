@@ -1,0 +1,6 @@
+# Install git
+sudo apt-get install git
+
+# Configure git username and email address
+git config --global user.name "Davin Stewart"
+git config --global user.email "me@davinstewart.com"
