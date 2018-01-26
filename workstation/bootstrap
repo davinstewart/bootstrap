@@ -14,5 +14,11 @@ cd $PROJECT_NAME
 # Blank out the log file.
 >bootstrap.log
 
+#Create SSH keys for use with git
+$SCRIPT_DIR/ssh.bootstrap $PROJECT_NAME 2>&1 | tee -a bootstrap.log
+
+#Install git
+$SCRIPT_DIR/git.bootstrap $PROJECT_NAME 2>&1 | tee -a bootstrap.log
+
 # Install Atom
 $SCRIPT_DIR/atom.bootstrap $PROJECT_NAME 2>&1 | tee -a bootstrap.log
