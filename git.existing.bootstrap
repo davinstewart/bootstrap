@@ -2,8 +2,8 @@
 
 # Assumption:  There is a fresh, blank github repo already created under your login with the same name as this project.
 
-# Initialize the git repository
-git clone $1
+# Initialize the git repository via SSH
+git clone git@github.com:davinstewart/$1.git
 
 # Add the commit to the github repo.
 git remote add origin https://github.com/davinstewart/$1.git
