@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# Install webpack to work with babel as a transformation manager
+sudo npm install --save-dev webpack webpack-dev-server html-webpack-plugin
+
+# Create webpack.config.js in my root folder with the following contents
+printf "var HTMLWebpackPlugin = require('html-webpack-plugin');\n\
+var HTMLWebpackPluginConfig = new HTMLWebpackPlugin({\n\
+  template: __dirname + '/app/index.html',\n\
+  filename: 'index.html',\n\
+  inject: 'body'\n\
+});\n\
+module.exports = {\n\
+  entry: __dirname + '/src/index.js'\n\
+  module: {\n\
+    loaders: [\n\
+      {\n\
+        test: /\.jsx$/,\n\
+        exclude: /node_modules/,\n\
+        loader: babel-loader\n\
+      }\n\
+    ]\n\
+  },\n\
+  output: {\n\
+    filename: 'transformed.js',\n\
+    path: __dirname + '/build'\n\
+  },\n\
+  plugins: [HTMLWebpackPluginConfig]\n\
+}" | sudo tee ./webpack.config.js
