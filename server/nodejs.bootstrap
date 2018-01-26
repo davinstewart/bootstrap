@@ -1,51 +1,36 @@
 #!/bin/bash
 
-# Install nodejs version 9.x
+# Get the latest package definitions.
+sudo apt-get update
+
+#This doesn't work because Debian distros are idiots.
+#sudo apt-get install -y nodejs
+#sudo apt-get install -y nodejs-legacy
+
+#Install curl because Ubuntu distros ship without it.
+sudo apt-get install -y curl
+
+#Install Node.js 9.x.
 curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -
 sudo apt-get install -y nodejs
-
-# Install the npm build tools
-sudo apt-get install -y build-essential
 
 # Install the latest npm version (the one that comes with nodejs is sometimes outdated).
 sudo npm install npm@latest -g -S
 
-# Install babel to use as the transpiler.
-sudo install --save-dev babel-core babel-loader babel-preset-react
+#Create the package.json file.
+npm init
 
-# Create .babelrc in my root folder with the following contents
-printf "{presets: ['react'] }" | sudo tee ./.babelrc
+# Install the npm build tools
+#sudo apt-get install -y build-essential
 
-# Install webpack to work with babel as a transformation manager
-sudo npm install --save-dev webpack webpack-dev-server html-webpack-plugin
+#Use babel for the transpiler
+./babel.bootstrap
 
-# Create webpack.config.js in my root folder with the following contents
-printf "var HTMLWebpackPlugin = require('html-webpack-plugin');\n\
-var HTMLWebpackPluginConfig = new HTMLWebpackPlugin({\n\
-  template: __dirname + '/app/index.html',\n\
-  filename: 'index.html',\n\
-  inject: 'body'\n\
-});\n\
-module.exports = {\n\
-  entry: __dirname + '/src/index.js'\n\
-  module: {\n\
-    loaders: [\n\
-      {\n\
-        test: /\.jsx$/,\n\
-        exclude: /node_modules/,\n\
-        loader: babel-loader\n\
-      }\n\
-    ]\n\
-  },\n\
-  output: {\n\
-    filename: 'transformed.js',\n\
-    path: __dirname + '/build'\n\
-  },\n\
-  plugins: [HTMLWebpackPluginConfig]\n\
-}" | sudo tee ./webpack.config.js
+#Use webpack to work with babel as a transformation manager
+./webpack.bootstrap
 
 # Install pm2 to be the process manager.  To start the service type pm2 start
-sudo npm install pm2 -g -S
+./pm2.bootstrap
 
 # Create the directories for code
 mkdir src
